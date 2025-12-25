@@ -1,113 +1,182 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>🎄 圣诞快乐</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>🎄 圣诞快乐</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    body {
-      height: 100vh;
-      background: radial-gradient(circle at top, #1a2a6c, #0f0c29);
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: "Segoe UI", sans-serif;
-      color: white;
-    }
+body {
+  height: 100vh;
+  background: radial-gradient(circle at top, #fff6, transparent 40%),
+              linear-gradient(135deg, #ff0844, #ffb199, #00c6ff, #0072ff);
+  background-size: 200% 200%;
+  animation: bgMove 12s ease infinite;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: white;
+}
 
-    /* 主容器 */
-    .container {
-      text-align: center;
-      z-index: 2;
-    }
+@keyframes bgMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-    /* 圣诞标题 */
-    h1 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      letter-spacing: 4px;
-      color: #fff;
-      animation: neon 2s infinite alternate;
-    }
+/* 光晕 */
+.light {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3), transparent 45%),
+    radial-gradient(circle at 70% 60%, rgba(255,255,255,0.25), transparent 50%);
+  pointer-events: none;
+  animation: pulse 6s ease-in-out infinite;
+}
 
-    h2 {
-      margin-top: 20px;
-      font-size: 1.4rem;
-      opacity: 0.85;
-    }
+@keyframes pulse {
+  0%,100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
 
-    @keyframes neon {
-      from {
-        text-shadow:
-          0 0 5px #fff,
-          0 0 10px #ff004c,
-          0 0 20px #ff004c,
-          0 0 40px #ff004c;
-      }
-      to {
-        text-shadow:
-          0 0 10px #fff,
-          0 0 20px #00f7ff,
-          0 0 40px #00f7ff,
-          0 0 80px #00f7ff;
-      }
-    }
+/* 主体 */
+.container {
+  position: relative;
+  z-index: 2;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-    /* 雪花 */
-    .snow {
-      position: fixed;
-      top: -10px;
-      color: white;
-      user-select: none;
-      pointer-events: none;
-      animation-name: fall;
-      animation-timing-function: linear;
-    }
+/* 超大标题 */
+h1 {
+  font-size: clamp(4rem, 10vw, 6.5rem);
+  letter-spacing: 10px;
+  margin-bottom: 40px;
+  text-shadow:
+    0 0 20px #fff,
+    0 0 50px #ffea00,
+    0 0 100px #ff004c;
+  animation: titleFloat 6s ease-in-out infinite;
+}
 
-    @keyframes fall {
-      to {
-        transform: translateY(110vh);
-      }
-    }
-  </style>
+@keyframes titleFloat {
+  0%   { transform: translateY(0) rotate(0deg); }
+  50%  { transform: translateY(-20px) rotate(2deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* 圣诞树容器 */
+.tree-wrap {
+  position: relative;
+  width: 320px;
+  height: 420px;
+  animation: treeSpin 10s ease-in-out infinite;
+}
+
+@keyframes treeSpin {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(3deg) scale(1.05); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+/* 圣诞树主体（三层） */
+.tree {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  filter: drop-shadow(0 0 25px #00ffcc);
+}
+
+.layer1 {
+  top: 0;
+  border-width: 0 140px 180px 140px;
+  border-color: transparent transparent #00ff9d transparent;
+}
+
+.layer2 {
+  top: 90px;
+  border-width: 0 180px 220px 180px;
+  border-color: transparent transparent #00e6a0 transparent;
+}
+
+.layer3 {
+  top: 190px;
+  border-width: 0 220px 260px 220px;
+  border-color: transparent transparent #00cc88 transparent;
+}
+
+/* 树干 */
+.trunk {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 70px;
+  background: #6b3e26;
+  border-radius: 8px;
+}
+
+/* 雪花 */
+.snow {
+  position: fixed;
+  top: -10px;
+  color: white;
+  pointer-events: none;
+  user-select: none;
+  animation: fall linear;
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh); }
+}
+</style>
 </head>
 
 <body>
 
-  <div class="container">
-    <h1>🎄 圣诞快乐</h1>
-    <h2>Merry Christmas & Happy Coding ✨</h2>
+<div class="light"></div>
+
+<div class="container">
+
+  <h1>🎄 圣诞快乐</h1>
+
+  <div class="tree-wrap">
+    <div class="tree layer1"></div>
+    <div class="tree layer2"></div>
+    <div class="tree layer3"></div>
+    <div class="trunk"></div>
   </div>
 
-  <script>
-    const snowChars = ["❄", "❅", "❆"];
+</div>
 
-    function createSnow() {
-      const snow = document.createElement("div");
-      snow.className = "snow";
-      snow.innerText = snowChars[Math.floor(Math.random() * snowChars.length)];
+<script>
+const snowIcons = ["❄", "❅", "❆", "✦", "✧"];
 
-      snow.style.left = Math.random() * window.innerWidth + "px";
-      snow.style.fontSize = Math.random() * 20 + 10 + "px";
-      snow.style.opacity = Math.random();
-      snow.style.animationDuration = Math.random() * 5 + 5 + "s";
-
-      document.body.appendChild(snow);
-
-      setTimeout(() => {
-        snow.remove();
-      }, 10000);
-    }
-
-    setInterval(createSnow, 150);
-  </script>
+setInterval(() => {
+  const snow = document.createElement("div");
+  snow.className = "snow";
+  snow.textContent = snowIcons[Math.floor(Math.random() * snowIcons.length)];
+  snow.style.left = Math.random() * innerWidth + "px";
+  snow.style.fontSize = Math.random() * 24 + 12 + "px";
+  snow.style.opacity = Math.random();
+  snow.style.animationDuration = Math.random() * 6 + 4 + "s";
+  document.body.appendChild(snow);
+  setTimeout(() => snow.remove(), 10000);
+}, 120);
+</script>
 
 </body>
 </html>
