@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>🎄 圣诞快乐</title>
+<title>Magic Christmas</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -17,186 +17,187 @@ body {
   overflow: hidden;
   font-family: "Segoe UI", system-ui, sans-serif;
   background:
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,.12), transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(255,255,255,.1), transparent 45%),
-    linear-gradient(130deg, #0f2027, #203a43, #2c5364);
-  background-size: 200% 200%;
-  animation: bgFlow 18s ease infinite;
+    radial-gradient(circle at 30% 20%, #2a2f6f, #0b0f2a 70%),
+    linear-gradient(120deg, #050816, #0b1c2d);
   color: white;
+  perspective: 1000px;
 }
 
-@keyframes bgFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* 光晕 */
-.glow {
+/* ===== 宇宙旋转能量环 ===== */
+.space-ring {
   position: fixed;
-  inset: 0;
+  inset: -20%;
+  border-radius: 50%;
   background:
-    radial-gradient(circle at center, rgba(255,255,255,.12), transparent 55%);
-  animation: glowPulse 6s ease-in-out infinite;
-  pointer-events: none;
+    conic-gradient(
+      from 0deg,
+      transparent,
+      rgba(120,200,255,.15),
+      transparent,
+      rgba(180,120,255,.12),
+      transparent
+    );
+  animation: spaceRotate 60s linear infinite;
+  transform-style: preserve-3d;
 }
 
-@keyframes glowPulse {
-  0%,100% { opacity: .6; }
-  50% { opacity: 1; }
+@keyframes spaceRotate {
+  from {
+    transform: rotateX(65deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateX(65deg) rotateZ(360deg);
+  }
 }
 
-/* 主容器 */
+/* ===== 星星 ===== */
+.star {
+  position: fixed;
+  background: white;
+  border-radius: 50%;
+  opacity: .8;
+  animation: twinkle 3s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: .3; }
+  to { opacity: 1; }
+}
+
+/* ===== 主内容 ===== */
 .container {
   position: relative;
-  z-index: 2;
+  z-index: 5;
   height: 100vh;
-  padding: 40px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   text-align: center;
+  padding-top: 60px;
 }
 
 /* 标题 */
-h1 {
-  font-size: clamp(3.5rem, 8vw, 5.5rem);
-  letter-spacing: 10px;
-  margin-bottom: 20px;
-  transform-style: preserve-3d;
-  animation: titleFloat 5s ease-in-out infinite;
+.top-title {
+  font-size: 3.2rem;
+  color: #7fe7e1;
+  letter-spacing: 8px;
+  text-shadow:
+    0 0 20px rgba(127,231,225,.6),
+    0 0 60px rgba(127,231,225,.3);
+}
+
+.en {
+  margin-top: 50px;
+  font-size: 2.6rem;
+  letter-spacing: 3px;
   text-shadow:
     0 0 20px rgba(255,255,255,.6),
-    0 0 60px rgba(255,215,0,.8);
+    0 0 60px rgba(160,200,255,.4);
 }
 
-@keyframes titleFloat {
-  0%,100% { transform: rotateX(0deg) translateY(0); }
-  50% { transform: rotateX(8deg) translateY(-10px); }
-}
-
-/* 副标题 */
-.subtitle {
-  font-size: 1.1rem;
-  letter-spacing: 4px;
+.text {
+  margin-top: 50px;
+  font-size: 2rem;
   opacity: .9;
-  margin-bottom: 40px;
 }
 
-/* 圣诞树 */
-.tree {
-  position: relative;
-  width: 140px;
-  height: 180px;
-  margin-bottom: 40px;
-  animation: treeSpin 8s ease-in-out infinite;
-}
-
-@keyframes treeSpin {
-  0%,100% { transform: rotate(-2deg); }
-  50% { transform: rotate(2deg); }
-}
-
-.tree::before,
-.tree::after {
-  content: "";
+/* ===== 圣诞树 ===== */
+.tree-wrap {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  border-left: 70px solid transparent;
-  border-right: 70px solid transparent;
-  border-bottom: 90px solid #1effbc;
-  filter: drop-shadow(0 0 20px rgba(30,255,188,.6));
+  right: 80px;
+  top: 160px;
+  filter: drop-shadow(0 0 40px #00ff99);
 }
 
-.tree::after {
-  top: 40px;
-  border-left-width: 60px;
-  border-right-width: 60px;
-  border-bottom-width: 80px;
+.tree-layer {
+  margin: 8px auto;
+  border-radius: 80px;
+  background: linear-gradient(#6aff9a, #1bbf70);
 }
 
-/* 祝福文字 */
-.bless {
-  max-width: 720px;
-  line-height: 2.4;
-  letter-spacing: 2px;
-  font-size: 1.05rem;
+.tree-layer:nth-child(1) { width: 80px; height: 50px; }
+.tree-layer:nth-child(2) { width: 110px; height: 60px; }
+.tree-layer:nth-child(3) { width: 140px; height: 70px; }
+
+.star-top {
+  color: gold;
+  font-size: 28px;
+  margin-bottom: 8px;
 }
 
-.bless span {
-  display: inline-block;
-  opacity: 0;
-  animation: textIn 1.4s ease forwards;
+.trunk {
+  width: 30px;
+  height: 30px;
+  background: #6b3e26;
+  margin: auto;
+  border-radius: 6px;
 }
 
-.bless span:nth-child(n) {
-  animation-delay: calc(var(--i) * 0.4s);
-}
-
-@keyframes textIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* 雪花 */
-.snow {
+/* ===== 花瓣 / 雪 ===== */
+.petal {
   position: fixed;
-  top: -10px;
-  color: white;
-  user-select: none;
+  top: -20px;
   pointer-events: none;
-  animation: fall linear;
+  animation: fall linear forwards, sway ease-in-out infinite;
 }
 
 @keyframes fall {
-  to { transform: translateY(110vh); }
+  to {
+    transform: translateY(120vh) rotate(360deg);
+  }
+}
+
+@keyframes sway {
+  0%,100% { margin-left: 0; }
+  50% { margin-left: 40px; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="glow"></div>
+<div class="space-ring"></div>
 
 <div class="container">
-  <h1>🎄 圣诞快乐</h1>
-  <div class="subtitle">Merry Christmas · Peace & Light</div>
+  <div class="top-title">🎄 圣诞快乐 🎄</div>
+  <div class="en">Magic Christmas</div>
+  <div class="text">每天都要开心</div>
 
-  <div class="tree"></div>
-
-  <div class="bless">
-    <span style="--i:1">你一定可以成为你想成为的人</span><br>
-    <span style="--i:2">生活明朗</span>
-    <span style="--i:3">万物可爱</span><br>
-    <span style="--i:4">万事可期</span>
-    <span style="--i:5">人间值得</span><br>
-    <span style="--i:6">所有期待</span>
-    <span style="--i:7">都有回响</span>
+  <div class="tree-wrap">
+    <div class="star-top">⭐</div>
+    <div class="tree-layer"></div>
+    <div class="tree-layer"></div>
+    <div class="tree-layer"></div>
+    <div class="trunk"></div>
   </div>
 </div>
 
 <script>
-const snowIcons = ["❄", "✦", "✧"];
+/* 星星（分层） */
+for (let i = 0; i < 160; i++) {
+  const star = document.createElement("div");
+  star.className = "star";
+  const size = Math.random() * 2 + 1;
+  star.style.width = size + "px";
+  star.style.height = size + "px";
+  star.style.left = Math.random() * innerWidth + "px";
+  star.style.top = Math.random() * innerHeight + "px";
+  star.style.animationDelay = Math.random() * 3 + "s";
+  document.body.appendChild(star);
+}
+
+/* 花瓣 & 雪 */
+const petals = ["🌸", "❄", "✿"];
 
 setInterval(() => {
-  const snow = document.createElement("div");
-  snow.className = "snow";
-  snow.textContent = snowIcons[Math.floor(Math.random() * snowIcons.length)];
-  snow.style.left = Math.random() * innerWidth + "px";
-  snow.style.fontSize = Math.random() * 20 + 10 + "px";
-  snow.style.opacity = Math.random() * .8 + .2;
-  snow.style.animationDuration = Math.random() * 8 + 6 + "s";
-  document.body.appendChild(snow);
-  setTimeout(() => snow.remove(), 14000);
-}, 180);
+  const p = document.createElement("div");
+  p.className = "petal";
+  p.textContent = petals[Math.floor(Math.random() * petals.length)];
+  p.style.left = Math.random() * innerWidth + "px";
+  p.style.fontSize = Math.random() * 20 + 12 + "px";
+  p.style.opacity = Math.random() * .8 + .2;
+  p.style.animationDuration = Math.random() * 10 + 10 + "s";
+  p.style.animationDelay = Math.random() * 2 + "s";
+  document.body.appendChild(p);
+  setTimeout(() => p.remove(), 20000);
+}, 220);
 </script>
 
 </body>
