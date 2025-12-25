@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>🎄 圣诞快乐</title>
+<title>🎄 Merry Christmas</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -14,25 +14,44 @@
 
 body {
   height: 100vh;
-  background: linear-gradient(135deg, #0f0c29, #1f3c88, #2c5364);
-  background-size: 300% 300%;
-  animation: bgFlow 18s ease infinite;
+  background:
+    radial-gradient(circle at top, #fff3, transparent 40%),
+    linear-gradient(120deg, #ff0844, #ffb199, #00c6ff, #0072ff);
+  background-size: 200% 200%;
+  animation: bgMove 12s ease infinite;
   overflow: hidden;
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  color: #fff;
+  color: white;
 }
 
-@keyframes bgFlow {
+@keyframes bgMove {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
+/* 光晕层 */
+.light {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.25), transparent 40%),
+    radial-gradient(circle at 80% 60%, rgba(255,255,255,0.2), transparent 45%);
+  pointer-events: none;
+  animation: pulse 6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* 主体 */
 .container {
   position: relative;
   z-index: 2;
   height: 100vh;
-  padding: 40px 24px;
+  padding: 40px 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -41,29 +60,50 @@ body {
 }
 
 h1 {
-  font-size: clamp(2.4rem, 6vw, 4.2rem);
-  letter-spacing: 6px;
-  margin-bottom: 36px;
+  font-size: clamp(3rem, 7vw, 5.2rem);
+  letter-spacing: 8px;
+  margin-bottom: 30px;
   text-shadow:
-    0 0 12px rgba(255,255,255,0.4),
-    0 0 36px rgba(0,247,255,0.4);
-  animation: glow 4s ease-in-out infinite;
+    0 0 10px #fff,
+    0 0 30px #fff,
+    0 0 60px #ffea00,
+    0 0 120px #ff004c;
+  animation: shine 2.8s ease-in-out infinite;
 }
 
-@keyframes glow {
-  0%,100% { opacity: 0.85; }
-  50% { opacity: 1; }
+@keyframes shine {
+  0%,100% { filter: brightness(1); }
+  50% { filter: brightness(1.6); }
 }
 
-.poem {
+.subtitle {
   font-size: 1.15rem;
+  letter-spacing: 3px;
+  opacity: 0.95;
+  margin-bottom: 40px;
+}
+
+/* 祝福文字 */
+.bless {
+  font-size: 1.05rem;
   line-height: 2.2;
   letter-spacing: 2px;
-  opacity: 0.95;
+  max-width: 720px;
 }
 
-.poem span {
-  display: block;
+.bless span {
+  display: inline-block;
+  margin: 0 8px;
+  animation: float 4s ease-in-out infinite;
+}
+
+.bless span:nth-child(even) {
+  animation-delay: 1.5s;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
 /* 雪花 */
@@ -71,81 +111,50 @@ h1 {
   position: fixed;
   top: -10px;
   color: white;
-  pointer-events: none;
   user-select: none;
+  pointer-events: none;
   animation: fall linear;
 }
 
 @keyframes fall {
   to { transform: translateY(110vh); }
 }
-
-/* 柔光 */
-.glow-layer {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.06), transparent 65%);
-  pointer-events: none;
-  animation: pulse 6s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%,100% { opacity: 0.4; }
-  50% { opacity: 0.7; }
-}
 </style>
 </head>
 
 <body>
 
-<div class="glow-layer"></div>
+<div class="light"></div>
 
 <div class="container">
   <h1>🎄 圣诞快乐</h1>
+  <div class="subtitle">Merry Christmas · Bright & Joyful</div>
 
-  <div class="poem">
-    <span>祝我的朋友</span>
-    <br>
-    <span>平安顺遂</span>
-    <span>所愿皆得</span>
-    <span>所行不悔</span>
-    <span>所爱长久</span>
-    <br>
-    <span>愿你温柔</span>
-    <span>也有锋芒</span>
-    <span>不被辜负</span>
-    <span>不必逞强</span>
-    <br>
-    <span>愿你心安</span>
-    <span>昼夜无惧</span>
-    <span>灯火可亲</span>
-    <span>归途有光</span>
-    <br>
-    <span>愿你走远</span>
-    <span>也能回头</span>
-    <span>看见自己</span>
-    <span>仍在热爱</span>
-    <br>
-    <span>这一岁末</span>
-    <span>愿世界轻</span>
-    <span>对你一些</span>
+  <div class="bless">
+    <span>你一定可以成为你想成为的人</span>
+    <span>生活明朗</span>
+    <span>万物可爱</span>
+    <span>万事可期</span>
+    <span>人间值得</span>
+    <span>所有期待</span>
+    <span>都有回响</span>
   </div>
 </div>
 
 <script>
-const snowChars = ["❄", "❅", "❆", "✦"];
+const snowIcons = ["❄", "❅", "❆", "✦", "✧"];
 
 setInterval(() => {
   const snow = document.createElement("div");
   snow.className = "snow";
-  snow.textContent = snowChars[Math.floor(Math.random() * snowChars.length)];
+  snow.textContent = snowIcons[Math.floor(Math.random() * snowIcons.length)];
   snow.style.left = Math.random() * innerWidth + "px";
-  snow.style.fontSize = Math.random() * 18 + 10 + "px";
+  snow.style.fontSize = Math.random() * 22 + 10 + "px";
   snow.style.opacity = Math.random();
-  snow.style.animationDuration = Math.random() * 8 + 6 + "s";
+  snow.style.animationDuration = Math.random() * 6 + 4 + "s";
   document.body.appendChild(snow);
-  setTimeout(() => snow.remove(), 12000);
-}, 180);
+  setTimeout(() => snow.remove(), 10000);
+}, 120);
 </script>
 
 </body>
